@@ -1,0 +1,19 @@
+' ****************************
+' * Calculate and make sound *
+' ----------------------------
+' calculate waveform
+DIM samples|(6500)
+delta_s=1/6500
+delta_t=0
+s1_440t=1/440
+w=360*440/6500
+FOR i%=0 TO 6499
+  samples|(i%)=10*SINQ(w*i%)+10
+  IF i% MOD 100=0
+    PRINT AT(10,10);USING "Sample ####/6500",i%
+  ENDIF
+NEXT i%
+FOR i%=0 TO 100
+  PRINT samples|(i%);", ";
+NEXT i%
+~INP(2)
