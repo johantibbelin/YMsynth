@@ -1,10 +1,10 @@
-' fixed point
+' fixed point  24.8
 DIM fr(16)
 init
-t1%=0.25*65536
-t2%=0.25*65536
+t1%=0.25*256
+t2%=0.25*256
 r%=t1%*t2%
-PRINT r%/(65536*65536)
+PRINT r%/(256*256)
 ~INP(2)
 PROCEDURE print_factions
   FOR i%=0 TO 15
