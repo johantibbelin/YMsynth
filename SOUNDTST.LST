@@ -3,17 +3,44 @@
 ' ----------------------------
 ' calculate waveform
 DIM samples|(6500)
+CLS
 delta_s=1/6500
 delta_t=0
 s1_440t=1/440
 w%=360*440/6500
+v%=360*220/6500
 FOR i%=0 TO 6499
-  samples|(i%)=5*SINQ(w%*i%)+5
+  samples|(i%)=5*SINQ(w%*i%)+5+3*SINQ(v%*i%)+3
   IF i% MOD 25=0
-    PRINT AT(10,10);USING "Sample ####/6500",i%
+    PRINT AT(3,10);USING "Calculating samples ####/6500",i%
   ENDIF
 NEXT i%
 FOR i%=0 TO 100
   PRINT samples|(i%);", ";
+  IF i% MOD 10=0
+    PRINT
+  ENDIF
 NEXT i%
+PRINT
 ~INP(2)
+play_sample
+~INP(2)
+PROCEDURE play_sample
+  sp%=GEMDOS(32,L:0)
+  t%=TIMER
+  POKE &HFF8800,1
+  POKE &HFF8802,0
+  POKE &HFF8800,7
+  POKE &HFF8802,&HFF
+  FOR i%=0 TO 6499
+    '    POKE &HFF8800,0
+    '   POKE &HFF8802,16
+    POKE &HFF8800,8
+    POKE &HFF8802,samples|(i%)
+  NEXT i%
+  time%=TIMER-t%
+  POKE &HFF8800,7
+  POKE &HFF8802,&HFF
+  PRINT time%
+  ~GEMDOS(32,L:sp%)
+RETURN
