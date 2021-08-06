@@ -2,17 +2,19 @@
 ' * Calculate and make sound *
 ' ----------------------------
 ' calculate waveform
+INLINE saw_in%,6500
 DIM samples|(6500)
+samples_p%=V:samples|(0)
 CLS
 PRINT "      Small soundtest"
 PRINT "     of4 bit waveforms"
 delta_s=1/6500
 delta_t=0
 s1_440t=1/440
-w%=360*440/4225
+w%=360*110/4225
 v%=360*220/4225
 FOR i%=0 TO 4224
-  samples|(i%)=4*SINQ(w%*i%)+5+3*SINQ(v%*i%)+3
+  samples|(i%)=5*SINQ(w%*i%)+5+5/2*SINQ(2*w%*i%)+5/2+(5/3)*SINQ(3*w%*i%)+5/3+5/4*SINQ(4*w%*i%)+5/4+1*SINQ(5*w%*i%)+1
   IF i% MOD 25=0
     PRINT AT(3,10);USING "Calculating samples ####/4224",i%
   ENDIF
@@ -30,14 +32,16 @@ plot_sample
 PRINT AT(10,20);"Generated waveform"
 ~INP(2)
 play_sample
+BMOVE samples_p%,saw_in%,4225
 ~INP(2)
+END
 PROCEDURE play_sample
   sp%=GEMDOS(32,L:0)
   t%=TIMER
   POKE &HFF8800,1
   POKE &HFF8802,0
   POKE &HFF8800,7
-  POKE &HFF8802,&HFF
+  POKE &HFF8802,&HF
   FOR i%=0 TO 4224
     '    POKE &HFF8800,0
     '   POKE &HFF8802,16
@@ -46,7 +50,7 @@ PROCEDURE play_sample
   NEXT i%
   time%=TIMER-t%
   POKE &HFF8800,7
-  POKE &HFF8802,&HFF
+  POKE &HFF8802,&HF
   PRINT time%
   ~GEMDOS(32,L:sp%)
 RETURN
