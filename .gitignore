@@ -1,2 +1,5 @@
 # ignore GFA Basic backups
 *.BAK
+# ignore program files
+*.PRG
+*.TOS
