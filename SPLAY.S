@@ -12,8 +12,8 @@
 
 	; setup mfp here
 	move.l #play(pc),-(sp)
-	move.w #0,-(sp)
-	move.w #7,-(sp)
+	move.w #94,-(sp)
+	move.w #1,-(sp)
 	move.w #0,-(sp)
 	move.w #31,-(sp)
 	trap #14
