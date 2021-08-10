@@ -1,7 +1,7 @@
 ; Play routine 4bit sample
 ; A0 - adress to sample
 ; D0 - sample length
-; D1 - numer of repeats 0 stop
+; D1 - numer of repeats 0 is stop
 
 	move.l a0,s_adr(pc)
 	move.l d0,s_len(pc)
@@ -9,8 +9,15 @@
 	move.l a0,d1
 	add.l d0,d1
 	move.l d1,s_sadr(pc)
-	; setup mfp here
 
+	; setup mfp here
+	move.l #play(pc),-(sp)
+	move.w #0,-(sp)
+	move.w #7,-(sp)
+	move.w #0,-(sp)
+	move.w #31,-(sp)
+	trap #14
+	add.l #12,sp
 
 	rts
 
