@@ -11,7 +11,7 @@
 	move.l d1,s_sadr(pc)
 
 	; setup mfp here
-	move.l #play(pc),-(sp)
+	move.l play(pc),-(sp)
 	move.w #94,-(sp)
 	move.w #1,-(sp)
 	move.w #0,-(sp)
